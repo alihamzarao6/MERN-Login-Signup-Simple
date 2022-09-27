@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+// important imports
+import React,{useState} from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+// import MainFileCrud from "./components/crud/MainFileCrud";
+import Homepage from "./components/Homepage/Homepage";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 
 function App() {
+  const [loginUser, setLoginUser] = useState({});
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            loginUser && loginUser._id ? <Homepage setLoginUser={setLoginUser} /> : <Login setLoginUser={setLoginUser} />
+          }
+        />
+        <Route path="/login" element={<Login setLoginUser={setLoginUser} />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
   );
 }
